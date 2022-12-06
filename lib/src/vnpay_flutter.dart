@@ -82,6 +82,7 @@ class VNPAYFlutter {
     required String paymentUrl,
     Function(Map<String, dynamic>)? onPaymentSuccess,
     Function(Map<String, dynamic>)? onPaymentError,
+    Function()? onBackPress,
     Function()? onWebPaymentComplete,
   }) async {
     if (kIsWeb) {
@@ -110,6 +111,11 @@ class VNPAYFlutter {
         }
       });
       flutterWebviewPlugin.launch(paymentUrl);
+
+      flutterWebviewPlugin.onBack.listen((val) async {
+        // onBackPress(); 
+        flutterWebviewPlugin.close();
+      });
     }
   }
 }
